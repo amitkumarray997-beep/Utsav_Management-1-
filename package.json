@@ -1,0 +1,8 @@
+{
+  "name": "campus-mela",
+  "version": "1.0.0",
+  "description": "Campus Mela: events, tickets, tamasha",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

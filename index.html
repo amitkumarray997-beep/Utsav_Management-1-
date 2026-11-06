@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Utsav – Events, Tickets, Tamasha</title>
+  <meta name="description" content="Explore, search and register for upcoming campus events.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mela.css">
+</head>
+<body>
+
+<header class="nav">
+  <a href="#home" class="logo">Utsav</a>
+  <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <nav id="menu">
+    <a href="#home">Home</a>
+    <a href="#events">Events</a>
+    <a href="#about">About</a>
+    <a href="#registrations">My registrations <span class="badge" id="regBadge">0</span></a>
+    <a href="#admin" id="adminLink" hidden>Admin</a>
+    <button class="theme" id="theme" aria-label="Switch colour theme">🌙</button>
+    <button class="btn btn-sm btn-ghost" id="authBtn">Log in</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Grab your pass.<br>The Utsav is on.</h1>
+      <p>Hackathons, concerts, workshops and sports meets. Find what's happening, pick your favourites and register in under a minute.</p>
+      <div class="hero-actions">
+        <a href="#events" class="btn">Browse events</a>
+        <a href="#about" class="btn btn-ghost">How it works</a>
+      </div>
+    </div>
+    <aside class="next-up" aria-label="Next event countdown">
+      <p class="small">Next stall opens in</p>
+      <h2 id="nextName">Loading…</h2>
+      <p id="nextMeta" class="small"></p>
+      <div class="timer" id="timer">
+        <div><b id="d">0</b><span>days</span></div>
+        <div><b id="h">0</b><span>hrs</span></div>
+        <div><b id="m">0</b><span>min</span></div>
+        <div><b id="s">0</b><span>sec</span></div>
+      </div>
+      <button class="btn btn-light" id="nextBtn">Register now</button>
+    </aside>
+  </section>
+
+  <section class="section" id="featured">
+    <h2>Featured events</h2>
+    <div class="grid" id="featuredGrid"></div>
+  </section>
+
+  <section class="section" id="events">
+    <h2>All upcoming events</h2>
+    <div class="tools">
+      <input type="search" id="search" placeholder="Search by name, venue or keyword" aria-label="Search events">
+      <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+    </div>
+    <p class="small" id="count"></p>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>No events match your search. Try another keyword or choose "All".</p>
+  </section>
+
+  <section class="section" id="registrations">
+    <h2>My registrations</h2>
+    <div class="reg-bar">
+      <p class="small" id="regSummary"></p>
+      <div>
+        <button class="btn btn-sm btn-ghost" id="exportBtn">Download CSV</button>
+        <button class="btn btn-sm btn-ghost" id="clearBtn">Clear all</button>
+      </div>
+    </div>
+    <div class="reg-list" id="regList"></div>
+  </section>
+
+  <section class="section" id="admin" hidden>
+    <h2>Admin panel</h2>
+    <div class="admin-grid">
+      <form id="evForm" class="panel" novalidate>
+        <h3 id="evFormTitle">Add new event</h3>
+        <label>Event name<input id="eName" placeholder="e.g. Annual Tech Fest"></label>
+        <label>Category<input id="eCat" list="catList" placeholder="Tech, Cultural, Sports…"><datalist id="catList"></datalist></label>
+        <label>Date and time<input type="datetime-local" id="eDate"></label>
+        <label>Venue<input id="eVenue" placeholder="e.g. Main Auditorium"></label>
+        <label>Description<textarea id="eDesc" rows="4" placeholder="What is this event about?"></textarea></label>
+        <label>Poster (optional, a default poster is used if empty)<input type="file" id="ePoster" accept="image/*"></label>
+        <div class="card-img prev" id="ePrev"></div>
+        <label class="check"><input type="checkbox" id="eFeat"> Show in featured events</label>
+        <div class="row">
+          <button class="btn" type="submit" id="evSave">Add event</button>
+          <button class="btn btn-ghost" type="button" id="posterReset">Use default poster</button>
+          <button class="btn btn-ghost" type="button" id="evCancel">Clear form</button>
+        </div>
+      </form>
+      <div>
+        <h3>Manage events</h3>
+        <div class="reg-list" id="adminEvents"></div>
+      </div>
+    </div>
+    <div class="reg-bar">
+      <h3>All registrations <span class="badge" id="adminRegCount">0</span></h3>
+      <button class="btn btn-sm btn-ghost" id="adminExport">Download CSV</button>
+    </div>
+    <div class="reg-list" id="adminRegs"></div>
+  </section>
+
+  <section class="section about" id="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Explore</b><span>Browse events or filter by category.</span></li>
+      <li><b>Check details</b><span>Open an event to see date, venue and schedule.</span></li>
+      <li><b>Register</b><span>Fill the short form and get an instant confirmation.</span></li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Campus Mela. Built with HTML5, CSS3 and JavaScript.</p>
+</footer>
+
+<!-- Event detail + registration modal -->
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="close" id="close" aria-label="Close">&times;</button>
+    <div class="m-banner" id="mBanner"></div>
+    <div class="m-body">
+      <h2 id="mTitle"></h2>
+      <ul class="facts" id="mFacts"></ul>
+      <p id="mDesc"></p>
+
+      <div class="prompt" id="loginPrompt" hidden>
+        <h3>Log in to register</h3>
+        <p>Create a free student account or log in to register for this event.</p>
+        <button class="btn" data-login>Log in or sign up</button>
+      </div>
+      <form id="form" novalidate>
+        <h3>Register for this event</h3>
+        <label>Full name
+          <input type="text" id="name" placeholder="e.g. Ananya Sahoo" autocomplete="name">
+          <small class="err" id="nameErr"></small>
+        </label>
+        <label>Email address
+          <input type="email" id="email" placeholder="you@college.edu" autocomplete="email">
+          <small class="err" id="emailErr"></small>
+        </label>
+        <label>Phone number
+          <input type="tel" id="phone" placeholder="10-digit mobile number" inputmode="numeric" maxlength="10" autocomplete="tel">
+          <small class="err" id="phoneErr"></small>
+        </label>
+        <label>Selected event
+          <select id="eventSelect"></select>
+          <small class="err" id="eventSelectErr"></small>
+        </label>
+        <button type="submit" class="btn">Confirm registration</button>
+      </form>
+
+      <div class="success" id="success" hidden>
+        <div class="tick">&#10003;</div>
+        <h3>You're registered!</h3>
+        <p id="successMsg"></p>
+        <button class="btn" id="done">Back to events</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Login / sign up modal -->
+<div class="overlay" id="authOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="close" id="authClose" aria-label="Close">&times;</button>
+    <div class="m-body">
+      <div class="tabs"><button class="tab active" data-mode="login">Log in</button><button class="tab" data-mode="signup">Sign up</button></div>
+      <h2 id="authTitle">Welcome back</h2>
+      <form id="authForm" novalidate>
+        <label class="signup-only">Full name<input id="aName" autocomplete="name"><small class="err" id="aNameErr"></small></label>
+        <label>Email address<input type="email" id="aEmail" autocomplete="email"><small class="err" id="aEmailErr"></small></label>
+        <label class="signup-only">Phone number<input type="tel" id="aPhone" inputmode="numeric" maxlength="10"><small class="err" id="aPhoneErr"></small></label>
+        <label>Password<input type="password" id="aPass" autocomplete="current-password"><small class="err" id="aPassErr"></small></label>
+        <button class="btn" type="submit" id="authSubmit">Log in</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/* Campus Mela: original clean layout with a fresh teal + saffron palette */
+:root{
+  --bg:#f3faf8; --ink:#10302e; --muted:#5c7370; --card:#fff; --line:#d9ebe7;
+  --surface:#fff; --on-ink:#fff; --nav:rgba(243,250,248,.9); --footer:#10302e;
+  --violet:#0f8b7d; --violet-d:#0b6e63; --coral:#ff8a3d; --mint:#ffc247;
+  --radius:18px;
+}
+:root[data-theme="dark"]{--bg:#0c1a19;--ink:#e6f5f2;--muted:#9bb8b3;--card:#132726;--line:#244240;--surface:#132726;--on-ink:#0c1a19;--nav:rgba(12,26,25,.9);--footer:#07110f}
+:root[data-theme="dark"] .logo{color:#4fe0cc}
+.logo{color:var(--violet);font-weight:700;letter-spacing:-.02em}
+.logo em{font-style:normal;color:var(--coral)}
+.logo::before{content:"🎟️ "}
+.hero{background:radial-gradient(circle at 85% 10%,rgba(255,138,61,.18),transparent 45%),radial-gradient(circle at 5% 90%,rgba(15,139,125,.14),transparent 45%)}
+.hero h1{background:linear-gradient(90deg,var(--violet),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{box-shadow:0 6px 16px rgba(15,139,125,.28)}
+.btn-ghost{box-shadow:none}
+.next-up{background:linear-gradient(145deg,#0f8b7d,#10302e);box-shadow:0 20px 50px rgba(15,139,125,.3);position:relative}
+.next-up::after{content:"";position:absolute;left:-12px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;background:var(--bg)}
+.next-up .small{color:#ffd9a8}
+.timer b{color:#ffc247}
+.card{border-radius:var(--radius)}
+.card:hover{box-shadow:0 18px 40px rgba(15,139,125,.18)}
+.card .tag{background:var(--coral);color:#fff}
+.chip.active{background:var(--violet);border-color:var(--violet);color:#fff}
+.section>h2::after{content:"";display:block;width:56px;height:4px;border-radius:4px;margin-top:.5rem;background:linear-gradient(90deg,var(--violet),var(--coral))}
+footer{color:#bfe0da}
