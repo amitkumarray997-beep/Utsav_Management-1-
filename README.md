@@ -1,4 +1,4 @@
-# Campus Mela – Events, Tickets, Tamasha
+# Utsav – Events, Tickets, Tamasha
 
 A responsive event management website built with **HTML5, CSS3 and vanilla JavaScript**.
 
