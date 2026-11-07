@@ -26,7 +26,7 @@ let activeCat = "All", currentEvent = null, editId = null, posterData; // poster
 const PAL = { Tech: ["#5b3df5", "#8a4dff"], Cultural: ["#ff5d73", "#ff9a5d"], Sports: ["#1fc7a0", "#1fa3c7"], Workshop: ["#2b2d6e", "#5b3df5"] };
 const ICON = { Tech: "💻", Cultural: "🎭", Sports: "🏅", Workshop: "🛠️" };
 function bg(e) {
-  if (e.poster) return `url("${e.poster}") center/cover`;
+  if (e.poster) return `url('${e.poster}') center/cover`;
   let p = PAL[e.category];
   if (!p) { const h = [...e.category].reduce((a, c) => a + c.charCodeAt(0), 0) % 360; p = [`hsl(${h},65%,48%)`, `hsl(${(h + 45) % 360},70%,55%)`]; }
   return `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
